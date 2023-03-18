@@ -1,58 +1,66 @@
 import './App.css';
-import {React,useEffect,useState} from 'react';
+import { React, useEffect, useState } from 'react';
 
 
 function App() {
-  const intialFormData={ name:"", email: "" , password:"" , rpassword:""}
+  const intialFormData = { name: "", email: "", password: "", rpassword: "" }
 
-  const errMsg={ name:"", email: "" , password:"" , rpassword:""}
+  const errMsg = { name: "", email: "", password: "", rpassword: "" }
 
-  const [form,setForm]=useState(intialFormData);
+  const [form, setForm] = useState(intialFormData);
 
-  const [isValid,setValid]=useState(true);
+  const [isValid, setValid] = useState(true);
 
-  const [error,setError]=useState(intialFormData);
-  
-  const onFormDataChange=(e)=>{
+  const [error, setError] = useState(intialFormData);
 
-    const {id, value}= e.target;
-    setForm({...form,[id]: value.trim()});
- 
-    chkError({...form,[id]: value.trim()});
+  const onFormDataChange = (e) => {
+
+    const { id, value } = e.target;
+    setForm({ ...form, [id]: value.trim() });
+
+    chkError({ ...form, [id]: value.trim() });
   }
 
-  const chkError=(form)=>{
-    console.log(form.name.length)
-    if(!form.name || form.name.length <= 3){
-      setError({...errMsg, name: "name is required"})
+  const chkError = (form) => {
+    let newErr={...errMsg};
+    setValid(true);
+    if (!form.name || form.name.length <= 3) {
+
+      newErr.name=("name is required");
+
     }
-    else{
-      setError({...errMsg})
-      setValid(false);
+    if (!form.email || form.email.length <= 3) {
+
+      newErr.email=("Email is required");
+
     }
+      
+    setError({ ...newErr })
 
   }
 
-  function submitUser(event){
-   
+  function submitUser(event) {
+
   }
 
   return (
     <div className="App">
       <h1>Register:</h1>
       <form>
-      
+
         <div className="text-field">
           <label htmlFor='name'>Username:</label>
           <input type="text" id="name" value={form.name} placeholder="Enter your Name"
-          onChange={onFormDataChange} required/>
-          <span style={{color: 'red'}}>{error.name}</span>
+            onChange={onFormDataChange} required />
+          <span style={{ color: 'red' }}>{error.name}</span>
         </div>
-
-       <div className="text-field">
-          <label for="email">Email:</label>
-          <input type="text" id="email" value={email} placeholder="youlooknice@gmail.com" 
-          onChange={(e) => setEmail(e.target.value)}/>
+    <br />
+    <br />
+        <div className="text-field">
+          <label htmlFor="email">Email:</label>
+          <input type="text" id="email" value={form.email} placeholder="youlooknice@gmail.com"
+            onChange={onFormDataChange} required />
+          <span style={{ color: 'red' }}>{error.email}</span>
         </div>
 
         {/* <div className="text-field">
@@ -69,7 +77,7 @@ function App() {
 
         <div className="button-area">
           <button type="submit" disabled={isValid}>Register</button>
-          
+
         </div>
 
       </form>
