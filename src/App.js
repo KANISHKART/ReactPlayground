@@ -1,69 +1,78 @@
-import React, { useState } from 'react';
 import './App.css';
+import {React,useEffect,useState} from 'react';
+
 
 function App() {
+  const intialFormData={ name:"", email: "" , password:"" , rpassword:""}
 
-  const [inputValue, setInput]=useState(0);
+  const errMsg={ name:"", email: "" , password:"" , rpassword:""}
 
-  const [outputValue, setOutput]=useState(0);
+  const [form,setForm]=useState(intialFormData);
 
+  const [isValid,setValid]=useState(true);
 
-  function resetInput(){
-    setInput(0);
+  const [error,setError]=useState(intialFormData);
+  
+  const onFormDataChange=(e)=>{
+
+    const {id, value}= e.target;
+    setForm({...form,[id]: value.trim()});
+ 
+    chkError({...form,[id]: value.trim()});
   }
 
-  function add(){
-    const res= Number(outputValue) + Number(inputValue);
-    setOutput(res);
-    setInput(0);
+  const chkError=(form)=>{
+    console.log(form.name.length)
+    if(!form.name || form.name.length <= 3){
+      setError({...errMsg, name: "name is required"})
+    }
+    else{
+      setError({...errMsg})
+      setValid(false);
+    }
+
+  }
+
+  function submitUser(event){
    
   }
 
-  function subtract(){
-    const res= Number(outputValue) - Number(inputValue);
-    setOutput(res);
-    setInput(0);
-  }
-
-  function Multiply(){
-    const res= Number(outputValue) * Number(inputValue);
-    setOutput(res);
-    setInput(0);
-  }
-
-  function divide(){
-    const res= Number(outputValue) / Number(inputValue);
-    setOutput(res);
-    setInput(0);
-  }
-  
-
   return (
     <div className="App">
-      <h1>Simple Calculator:</h1>
-      <br />
-      <div className="form">
-        <label>Input </label>
-        <input type="number" placeholder="enter number" id="inputValue" value={inputValue} onChange={(e)=> setInput(e.target.value)}/>
-      </div>
-      <br />
-      <div className="output">
-        <label>Output </label>
-        <input type="number" id="outputValue" value={outputValue} readOnly/>
-      </div>
+      <h1>Register:</h1>
+      <form>
+      
+        <div className="text-field">
+          <label htmlFor='name'>Username:</label>
+          <input type="text" id="name" value={form.name} placeholder="Enter your Name"
+          onChange={onFormDataChange} required/>
+          <span style={{color: 'red'}}>{error.name}</span>
+        </div>
 
-      <br/>
+       <div className="text-field">
+          <label for="email">Email:</label>
+          <input type="text" id="email" value={email} placeholder="youlooknice@gmail.com" 
+          onChange={(e) => setEmail(e.target.value)}/>
+        </div>
 
-      <div className="result">
-        <button type="button" onClick={add}>+</button>
-        <button type="button" onClick={subtract}>-</button>
-        <button type="button" onClick={Multiply}>*</button>
-        <button type="button" onClick={divide}>/</button>
+        {/* <div className="text-field">
+          <label for="pwd">Password:</label>
+          <input type="password" id="pwd" value={pwd} placeholder="shh..."
+          onChange={(e) => setPwd(e.target.value)} />
+        </div>
 
-        <button type="button" onClick={resetInput}>Reset Input</button>
-        <button type="button" onClick={() => setOutput(0)}>Reset Output</button>
-      </div>
+        <div className="text-field">
+          <label for="rpwd">Confirm Password:</label>
+          <input type="password" id="rpwd" value={rpwd} placeholder="shh..." 
+          onChange={(e) => setRpwd(e.target.value)}/>
+        </div>  */}
 
+        <div className="button-area">
+          <button type="submit" disabled={isValid}>Register</button>
+          
+        </div>
+
+      </form>
     </div>
   );
 }
