@@ -1,43 +1,31 @@
-import React from 'react';
-import { ThemeProvider,useTheme,useToggleTheme } from './ThemeContext';
-
+import React, { useState } from 'react';
+import { useThemeCSS } from './ThemeContext';
+import Goal from './Goal';
 
 function App() {
 
-  const darkTheme= useTheme()
-  const toggleTheme= useToggleTheme()
-  const themeStyle={
-    backgroundColor: darkTheme ? 'black' : 'white',
-    color: darkTheme ? 'white' : 'black'
+  const themeStyle = useThemeCSS();
+
+  const [myGoals, setMyGoals] = useState([])
+
+  function addGoal(value) {
+
+    setMyGoals([...myGoals, value])
   }
 
   return (
-    <>
-      <button onClick={toggleTheme}>toggle Theme</button>
-
-      <div style={themeStyle}>
-
-        <p>Goal : puruse a masters in mix of data science, Software in SETU Carlow <br/>
-Strength : cost , good modules on datascience<br/>
-Weakness :  location, familiarity, <br/>
-Opportunity: jobs
-Threats:  </p>
-
-      </div>
-    </>
+    <div style={themeStyle}>
+      <Goal add={addGoal} />
+      <h1>My Goals:</h1>
+      {
+        myGoals.map((g) =>
+          <label>My Goal is to {g.goal}, by {g.by}  <br/></label>
+        )
+      }
+      
+    </div>
   );
 }
+export default App;
 
 
-function Root() {
-  
-  return (
-    <>
-    <ThemeProvider>
-        <App />
-    </ThemeProvider>
-    </>
-  )
-}
-
-export default Root;
