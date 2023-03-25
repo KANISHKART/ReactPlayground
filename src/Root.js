@@ -1,15 +1,15 @@
 import React from 'react';
 import App from './App';
-import {ThemeProvider } from './ThemeContext';
+import { useThemeCSS } from './ThemeContext';
+
 
 
 function Root() {
+  const darkThemes=useThemeCSS();
     return (
-      <>
-        <ThemeProvider>
+      <div style={darkThemes}>
           <App />
-        </ThemeProvider>
-      </>
+      </div>
     )
   }
   

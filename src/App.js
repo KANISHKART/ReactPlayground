@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useThemeCSS } from './ThemeContext';
 import Goal from './Goal';
+import Api from './Api';
+import Hooks from './HooksFun';
 
 function App() {
 
@@ -22,6 +24,10 @@ function App() {
           <label>My Goal is to {g.goal}, by {g.by}  <br/></label>
         )
       }
+
+      <Api />
+
+      <Hooks />
       
     </div>
   );
