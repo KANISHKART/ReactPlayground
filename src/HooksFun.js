@@ -2,6 +2,7 @@
 import React, { useReducer, useRef, useState } from "react"
 import { useThemeCSS } from "./ThemeContext";
 import Todo from "./Todo";
+import useCustomLog from "./useCustomLog";
 
 export const NOTES = {
     ADD_NOTES: "add",
@@ -66,6 +67,8 @@ function Hooks() {
         listhandler({ type: NOTES.ADD_NOTES, payload: { name: todoInput } })
         setTodoInput('')
     }
+
+    useCustomLog(todoList)
 
     const inputRef= useRef();
 
