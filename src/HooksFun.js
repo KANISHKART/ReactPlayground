@@ -3,6 +3,7 @@ import React, { useReducer, useRef, useState } from "react"
 import { useThemeCSS } from "./ThemeContext";
 import Todo from "./Todo";
 import useCustomLog from "./useCustomLog";
+import HOC from './HOC';
 
 export const NOTES = {
     ADD_NOTES: "add",
@@ -111,6 +112,8 @@ function Hooks() {
 
                 </div>
             </div>
+
+            <HOC />
 
         </div>
     )

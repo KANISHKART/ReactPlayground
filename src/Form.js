@@ -23,7 +23,7 @@ function SampleForm(){
 
     function checkForm(event){
         event.preventDefault();
-        if(rating<=5 && comment.length==0){
+        if(rating<=5 && comment.length===0){
             alert("Kindly give your fedback on how we can help you");
             return;
         }
@@ -48,7 +48,7 @@ function SampleForm(){
                 </div>
 
                 <div className="inputFields">
-                    <label htmlFor="Rating">Rating:</label>
+                    <label htmlFor="rating">Rating:</label>
                     <input id="rating" type="range" min={0} max={10}  value={rating} onChange={getRating}/>
                 </div>
 
